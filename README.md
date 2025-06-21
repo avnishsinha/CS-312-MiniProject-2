@@ -1,100 +1,104 @@
-# CS-312 Mini-Project 2: API Integration
+# CS-312 MiniProject-1: Blog Web Application
 
-## 📌 Project Title:
-**Building a Website with Node.js, Express.js, Axios, and JokeAPI**
+## 📌 Project Overview
 
-## 🎯 Objective:
-To build a web app that takes a user’s first and last name, sends it to the [JokeAPI](https://jokeapi.dev/), and displays a personalized joke in response. This demonstrates API integration, server-side rendering with EJS, and user input handling.
+This is a Blog Web Application built using Node.js, Express.js, and EJS as part of the CS-312 MiniProject-1 assignment. The application allows users to:
 
-## 🛠 Tech Stack:
+- Create blog posts
+- View blog posts
+- Edit blog posts
+- Delete blog posts
+- Filter posts by category (Bonus Feature)
+
+> ⚠ **Note:** Data is not persistent. Posts are stored in-memory and will reset when the server restarts.
+
+---
+
+## 🛠 Technologies Used
+
 - Node.js
 - Express.js
-- Axios
 - EJS (Embedded JavaScript Templates)
-- HTML/CSS
+- Bootstrap 5
+- HTML / CSS
+
+---
+
+## 🚀 Features
+
+- Create new blog posts (author, title, content, category, date)
+- View all posts on homepage
+- Edit existing posts
+- Delete posts
+- Filter posts by category: Tech, Lifestyle, Education (Bonus)
+- Responsive UI using Bootstrap
 
 ---
 
 ## 📂 Project Structure
+
 ```
-CS-312-MiniProject-2/
-├── app.js
-├── package.json
-├── package-lock.json
-├── public/
-│   └── css/
-│       └── style.css
-├── views/
+
+CS-312-MiniProject-1/
+│
+├── app.js               # Main server file
+├── package.json         # Project dependencies
+│
+├── views/               # EJS templates
 │   ├── partials/
 │   │   ├── header.ejs
 │   │   └── footer.ejs
 │   ├── home.ejs
-│   ├── new.ejs
+│   ├── new\.ejs
 │   └── edit.ejs
-└── README.md
+│
+├── public/
+│   └── css/
+│       └── styles.css   # Custom styling
+│
+└── README.md            # Project documentation
+
+````
+
+---
+
+## 💻 How to Run Locally
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/avnishsinha/CS-312-MiniProject-1
+````
+
+### 2️⃣ Navigate into the Project Folder
+
+```bash
+cd CS-312-MiniProject-1
 ```
 
+### 3️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+### 4️⃣ Start the Server
+
+```bash
+node app.js
+```
+
+### 5️⃣ Open Browser
+
+```
+http://localhost:3000
+```
 ---
 
-## 🚀 How to Run the Project
+## ✅ Submission Info
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/CS-312-MiniProject-2.git
-   cd CS-312-MiniProject-2
-   ```
+**Submitted by:** Avnish Sinha
+**Course:** CS-312
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
 
-3. Start the server:
-   ```bash
-   node app.js
-   ```
 
-4. Open in your browser:
-   ```
-   http://localhost:3000
-   ```
-
----
-
-## 🔍 Features
-- User form to enter name
-- Dynamic API call to JokeAPI
-- EJS rendering of personalized jokes
-- Error handling and user-friendly messages
-- Clean responsive UI with header/footer partials
-
----
-
-## 🧪 Optional Enhancements
-- Add category filter for jokes
-- Use second API for weather, quotes, etc.
-- Combine multiple APIs for richer content
-
----
-
-## 📹 Video Submission
-Your demo video (3–5 min) should include:
-- Overview of project and structure
-- How `app.js` works
-- Explanation of form flow and API integration
-- Any difficulties and resolutions
-- Visible face and voice (mandatory)
-
----
-
-## ✅ Submission Checklist
-- [x] Code pushed to public GitHub repo
-- [x] All required files included
-- [x] Video link shared via Canvas
-- [x] JokeAPI integration tested
-- [x] works across devices
-
----
-
-## 📜 License
-For educational use under CS-312 Web Programming II.
