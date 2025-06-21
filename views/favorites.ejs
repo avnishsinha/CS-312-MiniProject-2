@@ -1,0 +1,164 @@
+<%- include("partials/header") %>
+<div class="container">
+  <h1>❤️ JOY Favorites</h1>
+  
+  <% if (favorites.length > 0) { %>
+    <div class="favorites-summary">
+      <p>You have <strong><%= favorites.length %></strong> favorite jokes</p>
+    </div>
+    
+    <div class="favorites-list">
+      <% favorites.forEach(function(joke) { %>
+        <div class="joke-item favorite-item" data-joke-id="<%= joke.id %>">
+          <div class="joke-content">
+            <div class="favorite-indicator">❤️</div>
+            <p class="joke-text"><%= joke.text %></p>
+            
+            <div class="joke-meta">
+              <span class="category-badge"><%= joke.category %></span>
+              <span class="user-info">For: <%= joke.firstName %> <%= joke.lastName %></span>
+              <span class="timestamp"><%= new Date(joke.timestamp).toLocaleString() %></span>
+            </div>
+            
+            <div class="joke-actions">
+              <div class="rating-section">
+                <span class="rating-label">Rating:</span>
+                <div class="star-rating">
+                  <% for(let i = 1; i <= 5; i++) { %>
+                    <button class="star-btn" data-rating="<%= i %>" data-joke-id="<%= joke.id %>">
+                      <span class="star <%= joke.rating >= i ? 'filled' : '' %>">⭐</span>
+                    </button>
+                  <% } %>
+                </div>
+                <span class="rating-display">(<%= joke.rating %>/5)</span>
+              </div>
+              
+              <div class="action-buttons">
+                <button class="btn-favorite" data-joke-id="<%= joke.id %>">
+                  <span class="favorite-icon favorited">❤️</span>
+                  <span class="favorite-text">Remove</span>
+                </button>
+                
+                <button class="btn-share" onclick="shareJoke('<%= joke.text %>')">
+                  📤 Share
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <div class="no-favorites">
+      <h3>No favorite jokes yet</h3>
+      <p>Start rating and favoriting jokes to see them here!</p>
+      <a href="/" class="btn">🎪 Get Some Jokes</a>
+    </div>
+  <% } %>
+  
+  <div class="nav-links">
+    <a href="/" class="btn btn-secondary">🏠 Back to Home</a>
+    <a href="/history" class="btn btn-secondary">📚 View History</a>
+    <a href="/stats" class="btn btn-secondary">📊 Statistics</a>
+  </div>
+</div>
+
+<script>
+// Rating functionality
+document.querySelectorAll('.star-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const rating = this.dataset.rating;
+    const jokeId = this.dataset.jokeId;
+    
+    fetch('/rate-joke', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ jokeId, rating })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        const container = this.closest('.joke-item');
+        const stars = container.querySelectorAll('.star-btn');
+        const ratingDisplay = container.querySelector('.rating-display');
+        
+        stars.forEach((star, index) => {
+          const starSpan = star.querySelector('.star');
+          if (index < rating) {
+            starSpan.classList.add('filled');
+          } else {
+            starSpan.classList.remove('filled');
+          }
+        });
+        
+        ratingDisplay.textContent = `(${rating}/5)`;
+      }
+    });
+  });
+});
+
+// Favorite functionality
+document.querySelectorAll('.btn-favorite').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const jokeId = this.dataset.jokeId;
+    
+    fetch('/toggle-favorite', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ jokeId })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Remove the joke item from the favorites list
+        const jokeItem = this.closest('.joke-item');
+        jokeItem.style.opacity = '0.5';
+        setTimeout(() => {
+          jokeItem.remove();
+          
+          // Update the count
+          const remainingFavorites = document.querySelectorAll('.favorite-item').length;
+          const summary = document.querySelector('.favorites-summary p');
+          if (summary) {
+            summary.innerHTML = `You have <strong>${remainingFavorites}</strong> favorite jokes`;
+          }
+          
+          // Show no favorites message if empty
+          if (remainingFavorites === 0) {
+            const container = document.querySelector('.container');
+            const noFavorites = document.createElement('div');
+            noFavorites.className = 'no-favorites';
+            noFavorites.innerHTML = `
+              <h3>No favorite jokes yet</h3>
+              <p>Start rating and favoriting jokes to see them here!</p>
+              <a href="/" class="btn">🎪 Get Some Jokes</a>
+            `;
+            container.insertBefore(noFavorites, document.querySelector('.nav-links'));
+          }
+        }, 300);
+      }
+    });
+  });
+});
+
+// Share functionality
+function shareJoke(jokeText) {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Check out this joke from JokeOnYou (JOY)!',
+      text: jokeText,
+      url: window.location.href
+    });
+  } else {
+    navigator.clipboard.writeText(jokeText).then(() => {
+      alert('Joke copied to clipboard!');
+    });
+  }
+}
+</script>
+
+<%- include("partials/footer") %> 

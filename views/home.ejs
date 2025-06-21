@@ -1,7 +1,7 @@
 <%- include("partials/header") %>
 <div class="container">
-  <h1>🎭 Joke Generator</h1>
-  <p style="color: #718096; margin-bottom: 30px; font-size: 1.1rem;">Get a personalized joke based on your name!</p>
+  <h1>🎭 JokeOnYou (JOY)</h1>
+  <p style="color: #718096; margin-bottom: 30px; font-size: 1.1rem;">Get personalized jokes based on your name!</p>
   
   <form action="/get-joke" method="POST" style="text-align: left;">
     <div class="form-group">
@@ -14,9 +14,28 @@
       <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
     </div>
     
+    <div class="form-group">
+      <label for="category">Joke Category</label>
+      <select id="category" name="category" class="form-select">
+        <% categories.forEach(function(cat) { %>
+          <option value="<%= cat.id %>"><%= cat.emoji %> <%= cat.name %></option>
+        <% }); %>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="count">Number of Jokes</label>
+      <select id="count" name="count" class="form-select">
+        <option value="1">1 Joke</option>
+        <option value="2">2 Jokes</option>
+        <option value="3">3 Jokes</option>
+        <option value="5">5 Jokes</option>
+      </select>
+    </div>
+    
     <div style="text-align: center; margin-top: 30px;">
       <button type="submit" class="btn">
-        <span>🎪 Get My Joke</span>
+        <span>🎪 Get My Jokes</span>
       </button>
     </div>
   </form>
@@ -24,8 +43,44 @@
   <div class="info-box">
     <h3>How it works:</h3>
     <p>
-      Simply enter your first and last name, and we'll fetch a personalized joke just for you using the JokeAPI!
+      Simply enter your first and last name, choose a category, and we'll fetch personalized jokes just for you using the JokeAPI!
     </p>
+  </div>
+  
+  <!-- Bonus: Recent Jokes Section -->
+  <% if (recentJokes && recentJokes.length > 0) { %>
+    <div class="recent-jokes">
+      <h3>📜 Recent Jokes (<%= totalJokes %> total)</h3>
+      <div class="joke-list">
+        <% recentJokes.slice(-3).reverse().forEach(function(joke) { %>
+          <div class="joke-item">
+            <p class="joke-text-small"><%= joke.text.substring(0, 100) %><%= joke.text.length > 100 ? '...' : '' %></p>
+            <div class="joke-meta">
+              <span class="category-badge"><%= joke.category %></span>
+              <span class="timestamp"><%= new Date(joke.timestamp).toLocaleDateString() %></span>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+      <div style="text-align: center; margin-top: 15px;">
+        <a href="/history" class="btn btn-secondary">📚 View All History</a>
+      </div>
+    </div>
+  <% } %>
+  
+  <!-- Bonus: Quick Stats -->
+  <div class="quick-stats">
+    <div class="stat-item">
+      <span class="stat-number"><%= totalJokes %></span>
+      <span class="stat-label">Total Jokes</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number"><%= categories.length %></span>
+      <span class="stat-label">Categories</span>
+    </div>
+    <div class="stat-item">
+      <a href="/stats" class="stat-link">📊 View Stats</a>
+    </div>
   </div>
 </div>
 <%- include("partials/footer") %>

@@ -1,0 +1,105 @@
+<%- include("partials/header") %>
+<div class="container">
+  <h1>📊 JOY Statistics</h1>
+  
+  <!-- Main Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">🎭</div>
+      <div class="stat-number"><%= stats.totalJokes %></div>
+      <div class="stat-label">Total Jokes</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-number"><%= stats.averageRating %></div>
+      <div class="stat-label">Average Rating</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">❤️</div>
+      <div class="stat-number"><%= stats.totalFavorites %></div>
+      <div class="stat-label">Favorites</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-number"><%= stats.topCategory %></div>
+      <div class="stat-label">Top Category</div>
+    </div>
+  </div>
+  
+  <!-- Category Breakdown -->
+  <div class="category-stats">
+    <h3>📈 Category Breakdown</h3>
+    <div class="category-list">
+      <% stats.categories.forEach(function(cat) { %>
+        <div class="category-stat">
+          <div class="category-info">
+            <span class="category-emoji"><%= cat.emoji %></span>
+            <span class="category-name"><%= cat.name %></span>
+          </div>
+          <div class="category-count">
+            <span class="count-number"><%= cat.count %></span>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 50%"></div>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+  
+  <!-- Recent Activity -->
+  <% if (stats.totalJokes > 0) { %>
+    <div class="recent-activity">
+      <h3>🕒 Recent Activity</h3>
+      <div class="activity-summary">
+        <p>You have generated <strong><%= stats.totalJokes %></strong> jokes so far!</p>
+        
+        <% if (stats.averageRating > 0) { %>
+          <p>Your average rating is <strong><%= stats.averageRating %>/5</strong> stars.</p>
+        <% } %>
+        
+        <% if (stats.totalFavorites > 0) { %>
+          <p>You have <strong><%= stats.totalFavorites %></strong> favorite jokes.</p>
+        <% } %>
+      </div>
+    </div>
+  <% } %>
+  
+  <!-- Fun Facts -->
+  <div class="fun-facts">
+    <h3>🎉 Fun Facts</h3>
+    <div class="facts-list">
+      <div class="fact-item">
+        <span class="fact-icon">🎪</span>
+        <span class="fact-text">You can get up to 5 jokes at once!</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-icon">🔍</span>
+        <span class="fact-text">Search through your joke history</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-icon">⭐</span>
+        <span class="fact-text">Rate jokes from 1 to 5 stars</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-icon">📤</span>
+        <span class="fact-text">Share jokes with friends</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-icon">❤️</span>
+        <span class="fact-text">Save your favorite jokes</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="nav-links">
+    <a href="/" class="btn btn-secondary">🏠 Back to Home</a>
+    <a href="/history" class="btn btn-secondary">📚 View History</a>
+    <a href="/favorites" class="btn btn-secondary">❤️ Favorites</a>
+  </div>
+</div>
+
+<%- include("partials/footer") %> 
