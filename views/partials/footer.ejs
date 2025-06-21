@@ -1,0 +1,41 @@
+  <script>
+    // Form enhancement
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('form');
+      const submitBtn = document.querySelector('button[type="submit"]');
+      
+      if (form && submitBtn) {
+        form.addEventListener('submit', function(e) {
+          const firstname = document.getElementById('firstname').value.trim();
+          const lastname = document.getElementById('lastname').value.trim();
+          
+          if (!firstname || !lastname) {
+            e.preventDefault();
+            alert('Please enter both first and last names.');
+            return;
+          }
+          
+          // Show loading state
+          submitBtn.innerHTML = '<span class="loading"></span> Getting your joke...';
+          submitBtn.disabled = true;
+        });
+      }
+      
+      // Input focus effects
+      const inputs = document.querySelectorAll('input[type="text"]');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.style.transform = 'translateY(-2px)';
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.style.transform = 'translateY(0)';
+        });
+      });
+      
+      // Smooth scroll to top when page loads
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

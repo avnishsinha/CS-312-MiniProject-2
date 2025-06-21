@@ -1,0 +1,25 @@
+<%- include("partials/header") %>
+<div class="container">
+  <h1>🎭 Your Joke</h1>
+  
+  <div class="user-greeting">
+    Hello <strong><%= firstname %> <%= lastname %></strong>! Here's your personalized joke:
+  </div>
+  
+  <div class="joke-container">
+    <div class="joke-text">
+      <%= joke %>
+    </div>
+  </div>
+  
+  <div class="nav-links">
+    <a href="/" class="btn btn-secondary">🎪 Get Another Joke</a>
+  </div>
+  
+  <div style="margin-top: 30px; padding: 15px; background: rgba(102, 126, 234, 0.05); border-radius: 8px;">
+    <p style="color: #718096; font-size: 0.85rem; margin: 0;">
+      💡 Joke powered by <a href="https://jokeapi.dev" target="_blank" style="color: #667eea;">JokeAPI</a>
+    </p>
+  </div>
+</div>
+<%- include("partials/footer") %>

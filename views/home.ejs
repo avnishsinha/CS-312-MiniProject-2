@@ -1,0 +1,31 @@
+<%- include("partials/header") %>
+<div class="container">
+  <h1>🎭 Joke Generator</h1>
+  <p style="color: #718096; margin-bottom: 30px; font-size: 1.1rem;">Get a personalized joke based on your name!</p>
+  
+  <form action="/get-joke" method="POST" style="text-align: left;">
+    <div class="form-group">
+      <label for="firstname">First Name</label>
+      <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="lastname">Last Name</label>
+      <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px;">
+      <button type="submit" class="btn">
+        <span>🎪 Get My Joke</span>
+      </button>
+    </div>
+  </form>
+  
+  <div class="info-box">
+    <h3>How it works:</h3>
+    <p>
+      Simply enter your first and last name, and we'll fetch a personalized joke just for you using the JokeAPI!
+    </p>
+  </div>
+</div>
+<%- include("partials/footer") %>
