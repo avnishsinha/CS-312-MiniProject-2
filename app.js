@@ -1,8 +1,10 @@
 /*
+NAME - Avnish Kumar Sinha
 Mini-Project 2: API Integration
 Project Name: CS-312-MiniProject-2
-API: JokeAPI (returns a joke based on the user's name) Choosing this one because it was the most simple and easy to use.
-BONUS CHALLENGE: Enhanced features including categories, history, ratings, and more!
+API bieng used: JokeAPI (returns a joke based on the user's name) Choosing this one because I feel this was easy to implement.
+The weather might have been good too, I have done a project with weather API before. Also includes,
+BONUS CHALLENGE: Enhanced features including categories, history, ratings, etc.
 */
 
 const express = require("express");
@@ -11,6 +13,7 @@ const path = require("path");
 const app = express();
 
 // In-memory storage for bonus features (in production, use a database)
+
 let jokeHistory = [];
 let userRatings = {};
 let favoriteJokes = [];
@@ -103,7 +106,7 @@ app.get("/history", (req, res) => {
     );
   }
   
-  // Category filter
+  // putting the Category filter
   if (category && category !== 'Any') {
     filteredJokes = filteredJokes.filter(joke => joke.category === category);
   }

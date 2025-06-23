@@ -1,3 +1,5 @@
+# CS-312 Mini-Project 2: API Integration
+
 ## 📌 Project Title:
 **JokeOnYou (JOY) - Building a Website with Node.js, Express.js, Axios, and JokeAPI**
 
